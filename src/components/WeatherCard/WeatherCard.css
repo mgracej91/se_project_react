@@ -1,0 +1,8 @@
+.weather-card {
+  width: 100%;
+  height: 80px;
+}
+
+.weather-card__image {
+  object-fit: contain;
+}
