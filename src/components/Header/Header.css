@@ -26,3 +26,21 @@
 .header__username {
   margin: 0;
 }
+
+.mobileMenuBtn {
+  display: none;
+}
+
+.navigation-container {
+  display: none;
+}
+
+@media screen and (max-width: 627px) {
+  .mobileMenuBtn {
+    display: block;
+  }
+
+  .navigation-container.mobile-open {
+    display: block;
+  }
+}
