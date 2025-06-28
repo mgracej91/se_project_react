@@ -21,3 +21,8 @@
   left: 16px;
   color: #ffffff;
 }
+
+@media screen and (max-width: 627px) {
+  .weather-card {
+  }
+}
