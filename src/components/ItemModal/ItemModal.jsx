@@ -12,8 +12,9 @@ function ItemModal({ activeModal, handleCloseClick, card }) {
         >
           <img src={xIcon} alt="Close" />
         </button>
-        <img src={card.link} alt="" className="modal__image" />
-        <div className="modal__footer">
+
+        <div className="modal__item">
+          <img src={card.link} alt="" className="modal__image" />
           <h2 className="modal__caption">{card.name}</h2>
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>
