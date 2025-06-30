@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "CabinetGrotesk";
-  src: url("./vendor/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
 }
 
 .modal {
-  font-family: "CabinetGrotesk", Arial, Helvetica, sans-serif;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,25 +30,19 @@
 
 .modal__title {
   margin: 0;
-  font-size: 16px;
-  line-height: 20px;
+
   padding-bottom: 24px;
-  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
 }
 
 .modal__label {
-  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: 20px;
   padding-bottom: 8px;
   margin-bottom: 10px;
 }
 
 .modal__input {
-  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   width: 100%;
   border: 0;
   border-bottom: 1px solid #000000;
@@ -61,18 +55,10 @@
 
 .modal__label_type_radio {
   border: none;
-  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
 }
 
 .modal__legend {
   padding: 24px 0 12px 0;
-  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
 }
 
 .modal__close {
@@ -119,8 +105,7 @@
   color: white;
   width: 124px;
   height: 36px;
-  font-size: 16px;
-  line-height: 20px;
+
   align-items: center;
   justify-content: center;
   border-radius: 4px;

@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "CabinetGrotesk";
-  src: url("./vendor/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
 }
 
 .app {
-  font-family: "CabinetGrotesk", Arial, Helvetica, sans-serif;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
   background-color: #f3f3f3;
   color: #000000;
   -webkit-font-smoothing: antialiased;

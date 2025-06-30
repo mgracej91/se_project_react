@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "CabinetGrotesk";
-  src: url("./vendor/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("opentype");
 }
 
 .modal.modal_opened {
@@ -11,18 +11,29 @@
   right: 0;
   bottom: 0;
   left: 0;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .modal__item {
-  display: block;
-  justify-content: center;
-  align-items: center;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
   border-radius: 16px;
   background-color: #ffffff;
 }
 
+.modal__image {
+  height: 400px;
+  width: 400px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
 .modal__caption {
-  font-family: "CabinetGrotesk", Arial, Helvetica, sans-serif;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
   margin-left: 32px;
   font-weight: 700;
   font-size: 20px;
@@ -45,4 +56,11 @@
 
 .modal__content_type_image {
   position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .modal__image {
+    height: 200px;
+    width: 200px;
+  }
 }

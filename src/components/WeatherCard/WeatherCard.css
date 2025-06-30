@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
+}
+
 .weather-card {
   position: relative;
   display: flex;
@@ -13,7 +18,7 @@
 }
 
 .weather-card__temp {
-  font-family: "CabinetGrotesk", Arial, Helvetica, sans-serif;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
   font-size: 36px;
   line-height: 40px;
   margin: 0;

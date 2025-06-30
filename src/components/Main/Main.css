@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "CabinetGrotesk";
-  src: url("./vendor/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
 }
 
 .cards__list {
@@ -13,7 +13,7 @@
 }
 
 .cards__text {
-  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
