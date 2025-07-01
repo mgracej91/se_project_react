@@ -6,10 +6,11 @@
 .cards__list {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   margin: 0;
   padding: 0;
   list-style-type: none;
-  gap: 21px;
+  gap: 20px;
 }
 
 .cards__text {
@@ -24,5 +25,9 @@
 @media screen and (max-width: 627px) {
   .cards__text {
     margin-top: 60px;
+  }
+
+  .cards__list {
+    gap: 15px;
   }
 }

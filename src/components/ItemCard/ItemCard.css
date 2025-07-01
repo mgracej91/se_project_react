@@ -8,6 +8,8 @@
   width: 323px;
   position: relative;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   border: 1px solid #0000004d;
   border-radius: 10px;
@@ -33,4 +35,13 @@
 .card__image {
   width: 100%;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 164px;
+    width: 164px;
+  }
 }

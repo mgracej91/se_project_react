@@ -2,6 +2,7 @@ import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../utils/constants.js";
 import ItemCard from "../ItemCard/ItemCard.jsx";
+import Footer from "../Footer/Footer.jsx";
 
 function Main({ weatherData, handleCardClick }) {
   return (
@@ -26,6 +27,7 @@ function Main({ weatherData, handleCardClick }) {
               );
             })}
         </ul>
+        <Footer />
       </section>
     </main>
   );
