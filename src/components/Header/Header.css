@@ -123,16 +123,26 @@
   .header__mobile-close {
     display: block;
   }
+
   .header__add-clothes-btn {
+    display: none;
+  }
+
+  .header__nav_opened .header__add-clothes-btn {
     order: 1;
-    display: none;
+    display: block;
   }
+
   .header__user-container {
-    flex: 0 0 100%;
-    margin: 0 0 auto;
-    justify-content: center;
     display: none;
   }
+
+  .header__nav_opened .header__user-container {
+    display: flex;
+    flex: 0 0 100%;
+    justify-content: center;
+  }
+
   .header__username {
     font-size: 24px;
     font-weight: 700;

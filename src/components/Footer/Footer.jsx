@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
       <div className="footer__title">
         <p>Developed by Name Megan Jakims</p>
-        <span>2025</span>
+        <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>
   );
