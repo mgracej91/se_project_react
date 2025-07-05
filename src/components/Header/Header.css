@@ -12,13 +12,15 @@
   max-width: 100%;
 }
 
-.header-container {
+.header__container {
   margin-right: auto;
+  display: flex;
+  align-items: center;
 }
 
 .header__logo {
   width: 88px;
-  margin-bottom: 34px;
+  margin-right: 24px;
 }
 
 .header__date-and-location {
@@ -126,6 +128,14 @@
 
   .header__add-clothes-btn {
     display: none;
+  }
+
+  .header__container {
+    flex-direction: column;
+  }
+
+  .header__logo {
+    margin-bottom: 32px;
   }
 
   .header__nav_opened .header__add-clothes-btn {
