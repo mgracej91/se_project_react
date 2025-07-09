@@ -3,8 +3,9 @@ import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.png";
 import React, { useMemo, useState } from "react";
 import mobilebtn from "../../assets/hamburger.svg";
-//import xIcon from "../../assets/x.svg";
+import xIcon from "../../assets/x.svg";
 import { coordinates } from "../../utils/constants";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({ handleBtnClick, weatherData }) {
   const currentDate = useMemo(() => {
@@ -32,6 +33,8 @@ function Header({ handleBtnClick, weatherData }) {
           isMobileMenuOpened ? "header__nav_opened" : ""
         }`}
       >
+        <ToggleSwitch />
+
         <button
           type="button"
           className="header__add-clothes-btn"
