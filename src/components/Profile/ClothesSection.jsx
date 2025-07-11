@@ -1,16 +1,21 @@
 import ItemCard from "../ItemCard/ItemCard";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import "./ClothesSection.css";
 
-function ClothesSection({ clothingItems }) {
+function ClothesSection({ clothingItems, onCardClick, onBtnClick }) {
   return (
-    <div className="Clothes-section">
+    <div className="clothes-section">
       <p>Your items</p>
-      <button type="button" className="AddItemModal">
+      <button
+        onClick={onBtnClick}
+        type="button"
+        className="clothes-section_AddItemBtn"
+      >
         + Add new
       </button>
-      <section className="ClothesSection__clothing-items">
+      <section className="clothes-section__clothing-items">
         {clothingItems.map((item) => (
-          <ItemCard key={item._id} item={item} />
+          <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
         ))}
       </section>
     </div>

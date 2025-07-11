@@ -9,7 +9,7 @@ import xIcon from "../../assets/x.svg";
 import { coordinates } from "../../utils/constants";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ handleBtnClick, weatherData }) {
+function Header({ onBtnClick, weatherData }) {
   const currentDate = useMemo(() => {
     return new Date();
   }, []).toLocaleString("default", {
@@ -41,7 +41,7 @@ function Header({ handleBtnClick, weatherData }) {
         <button
           type="button"
           className="header__add-clothes-btn"
-          onClick={handleBtnClick}
+          onClick={onBtnClick}
         >
           + Add clothes
         </button>

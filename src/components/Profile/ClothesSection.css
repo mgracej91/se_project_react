@@ -1,3 +1,8 @@
-.Clothes-section {
+.clothes-section {
   display: flex;
+}
+
+.clothes-section_AddItemBtn {
+  width: 88px;
+  height: 25px;
 }

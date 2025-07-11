@@ -76,21 +76,26 @@ function App() {
     >
       <div className="app">
         <div className="app__content">
-          <Header handleBtnClick={handleBtnClick} weatherData={weatherData} />
+          <Header onBtnClick={handleBtnClick} weatherData={weatherData} />
           <Routes>
             <Route
               path="/"
               element={
                 <Main
                   weatherData={weatherData}
-                  handleCardClick={handleCardClick}
+                  onCardClick={handleCardClick}
                   clothingItems={clothingItems}
                 />
               }
             />
             <Route
               path="/profile"
-              element={<Profile clothingItems={clothingItems} />}
+              element={
+                <Profile
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
           <Footer />
