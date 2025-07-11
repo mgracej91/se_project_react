@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
-import ReactDom from "react-dom/client";
 
+import "../../index.css";
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard.jsx";
-import Footer from "../Footer/Footer.jsx";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit.jsx";
 
@@ -37,7 +36,6 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
               );
             })}
         </ul>
-        <Footer />
       </section>
     </main>
   );
