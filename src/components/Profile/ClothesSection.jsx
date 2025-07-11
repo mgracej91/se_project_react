@@ -3,8 +3,11 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 
 function ClothesSection({ clothingItems }) {
   return (
-    <div className="ClothesSection__items">
-      <button type="button" className="AddItemModal"></button>
+    <div className="Clothes-section">
+      <p>Your items</p>
+      <button type="button" className="AddItemModal">
+        + Add new
+      </button>
       <section className="ClothesSection__clothing-items">
         {clothingItems.map((item) => (
           <ItemCard key={item._id} item={item} />
