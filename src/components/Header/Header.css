@@ -90,6 +90,11 @@
   justify-content: flex-end;
 }
 
+.header__link {
+  text-decoration: none;
+  color: #000;
+}
+
 @media screen and (max-width: 767px) {
   .header__nav_opened {
     display: flex;

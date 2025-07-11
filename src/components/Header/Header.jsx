@@ -23,14 +23,15 @@ function Header({ onBtnClick, weatherData }) {
   };
   return (
     <header className="header">
-      <Link to={"/"}>
-        <div className="header__container">
+      <div className="header__container">
+        <Link to={"/"}>
           <img src={logo} alt="WTWR Logo" className="header__logo" />
-          <p className="header__date-and-location">
-            {currentDate}, {weatherData.city}
-          </p>
-        </div>
-      </Link>
+        </Link>
+        <p className="header__date-and-location">
+          {currentDate}, {weatherData.city}
+        </p>
+      </div>
+
       <div
         className={`header__nav ${
           isMobileMenuOpened ? "header__nav_opened" : ""
@@ -45,7 +46,7 @@ function Header({ onBtnClick, weatherData }) {
         >
           + Add clothes
         </button>
-        <Link to={"/profile"}>
+        <Link to="/profile" className="header__link">
           <div className="header__user-container">
             <p className="header__username">Terrence Tegegne</p>
             {avatar ? (
