@@ -7,7 +7,6 @@ function ToggleSwitch({}) {
     CurrentTemperatureUnitContext
   );
 
-  debugger;
   return (
     <label className="toggleSwitch">
       <input
