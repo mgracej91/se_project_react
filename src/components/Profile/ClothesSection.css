@@ -1,8 +1,28 @@
+@font-face {
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
+}
+
 .clothes-section {
-  display: flex;
+  font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
 }
 
 .clothes-section_AddItemBtn {
   width: 88px;
   height: 25px;
+  border: none;
+  margin-left: 20px;
+  color: #00000099;
+}
+
+.clothes-section-header {
+  display: flex;
+  align-items: center;
+}
+
+.clothes-section__clothing-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 0;
 }

@@ -57,8 +57,18 @@
 .modal__close {
   cursor: pointer;
 }
+
 .modal__content_type_image {
   position: relative;
+}
+
+.modal__delete {
+  border: none;
+  background-color: #ffffff;
+  color: #ff4d00;
+  position: absolute;
+  right: 32px;
+  bottom: 95px;
 }
 
 @media screen and (max-width: 767px) {
