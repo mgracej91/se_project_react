@@ -12,7 +12,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import Profile from "../Profile/Profile";
 import SideBar from "../Profile/SideBar";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../../utils/constants.js";
+import { getItems } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -23,10 +23,10 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    setClothingItems([{ name, link: imageUrl, weather }, ...clothingItems]);
+    setClothingItems([{ name, imageUrl, weather }, ...clothingItems]);
     closeActiveModal();
   };
 
@@ -45,6 +45,12 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+  };
+
+  const deleteItemModal = (card) => {
+    setClothingItems(clothingItems.filter((item) => item._id !== card._id));
+    closeActiveModal();
+    console.log("All items:", clothingItems);
   };
 
   useEffect(() => {
@@ -66,6 +72,14 @@ function App() {
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        setClothingItems(data);
       })
       .catch(console.error);
   }, []);
@@ -109,6 +123,7 @@ function App() {
           activeModal={activeModal}
           card={selectedCard}
           handleCloseClick={closeActiveModal}
+          handleDeleteClick={deleteItemModal}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

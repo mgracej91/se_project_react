@@ -15,6 +15,7 @@
   border-radius: 10px;
   margin-right: 20px;
   margin-bottom: 171px;
+  cursor: pointer;
 }
 
 .card__name {

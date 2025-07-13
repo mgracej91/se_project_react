@@ -54,6 +54,9 @@
   right: 24px;
 }
 
+.modal__close {
+  cursor: pointer;
+}
 .modal__content_type_image {
   position: relative;
 }

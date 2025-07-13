@@ -1,6 +1,7 @@
 import "./ItemCard.css";
+import xIcon from "../../assets/x.svg";
 
-function ItemCard({ item, onCardClick }) {
+function ItemCard({ item, onCardClick, handleCloseClick }) {
   const handleClick = () => {
     onCardClick(item);
   };
@@ -11,7 +12,7 @@ function ItemCard({ item, onCardClick }) {
       <img
         onClick={handleClick}
         className="card__image"
-        src={item.link}
+        src={item.imageUrl}
         alt={item.name}
       />
     </li>
