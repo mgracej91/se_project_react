@@ -12,7 +12,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import Profile from "../Profile/Profile";
 import SideBar from "../Profile/SideBar";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems } from "../../utils/api.js";
+import { getItems, postItems, deleteItems } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -26,7 +26,11 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    setClothingItems([{ name, imageUrl, weather }, ...clothingItems]);
+    postItems({ name, imageUrl, weather })
+      .then((data) => {
+        setClothingItems([data, ...clothingItems]);
+      })
+      .catch(console.error);
     closeActiveModal();
   };
 
@@ -48,9 +52,12 @@ function App() {
   };
 
   const deleteItemModal = (card) => {
-    setClothingItems(clothingItems.filter((item) => item._id !== card._id));
-    closeActiveModal();
-    console.log("All items:", clothingItems);
+    deleteItems(card)
+      .then(() => {
+        setClothingItems(clothingItems.filter((item) => item._id !== card._id));
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
