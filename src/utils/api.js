@@ -31,4 +31,4 @@ function deleteItems(card) {
   });
 }
 
-export { getItems, postItems, deleteItems };
+export { checkResponse, getItems, postItems, deleteItems };
