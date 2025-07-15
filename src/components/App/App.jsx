@@ -29,9 +29,9 @@ function App() {
     postItems({ name, imageUrl, weather })
       .then((data) => {
         setClothingItems([data, ...clothingItems]);
+        closeActiveModal();
       })
       .catch(console.error);
-    closeActiveModal();
   };
 
   const handleToggleSwitchChange = () => {
@@ -113,6 +113,7 @@ function App() {
               path="/profile"
               element={
                 <Profile
+                  onBtnClick={handleBtnClick}
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
                 />

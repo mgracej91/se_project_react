@@ -1,8 +1,12 @@
 const baseUrl = "http://localhost:3001";
 
+function checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+}
+
 function getItems() {
   return fetch(`${baseUrl}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    return checkResponse(res);
   });
 }
 
@@ -13,7 +17,7 @@ function postItems({ name, imageUrl, weather }) {
     body: JSON.stringify({ name, imageUrl, weather }),
   };
   return fetch(`${baseUrl}/items`, options).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    return checkResponse(res);
   });
 }
 
@@ -23,7 +27,7 @@ function deleteItems(card) {
     headers: { "Content-Type": "application/json" },
   };
   return fetch(`${baseUrl}/items/${card._id}`, options).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    return checkResponse(res);
   });
 }
 

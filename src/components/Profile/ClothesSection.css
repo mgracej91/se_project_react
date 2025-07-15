@@ -26,3 +26,7 @@
   flex-wrap: wrap;
   margin-bottom: 0;
 }
+
+.clothes-section_AddItemBtn {
+  cursor: pointer;
+}
