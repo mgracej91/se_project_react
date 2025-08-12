@@ -13,6 +13,8 @@
   border: none;
   margin-left: 20px;
   color: #00000099;
+  cursor: pointer;
+  background: none;
 }
 
 .clothes-section-header {
@@ -25,8 +27,4 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 0;
-}
-
-.clothes-section_AddItemBtn {
-  cursor: pointer;
 }

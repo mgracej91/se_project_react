@@ -19,8 +19,25 @@ function AddItemModal({ handleCloseClick, isOpen, onAddItemModalSubmit }) {
     setWeather(e.target.value);
   };
 
+  const [error, setError] = useState("");
+
+  function isValidImageUrl(url) {
+    return (
+      /^https?:\/\//.test(url) &&
+      /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url) &&
+      !url.includes("example.com/avatar.jpg")
+    );
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isValidImageUrl(imageUrl)) {
+      setError(
+        "Please enter a valid image URL (jpg, png, gif, webp, svg) and not a placeholder."
+      );
+      return;
+    }
+    setError("");
     onAddItemModalSubmit({ name, imageUrl, weather });
   };
 
@@ -63,6 +80,11 @@ function AddItemModal({ handleCloseClick, isOpen, onAddItemModalSubmit }) {
           value={imageUrl}
           required
         />
+        {error && (
+          <span className="modal__error" style={{ color: "red" }}>
+            {error}
+          </span>
+        )}
       </label>
       <fieldset className="modal__radio-btns">
         <legend className="modal__legend">Select the weather type:</legend>

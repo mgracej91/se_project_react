@@ -1,14 +1,23 @@
 import ItemCard from "../ItemCard/ItemCard";
-import AddItemModal from "../AddItemModal/AddItemModal";
 import "./ClothesSection.css";
 
-function ClothesSection({ clothingItems, onCardClick, onBtnClick }) {
+function ClothesSection({
+  clothingItems,
+  onCardClick,
+  onCardLike,
+  onBtnClick,
+  currentUser,
+}) {
+  const userItems = clothingItems.filter(
+    (item) => item.owner === currentUser._id
+  );
+
   return (
     <div className="clothes-section">
       <div className="clothes-section-header">
         <p className="clothes-section-title">Your items</p>
         <button
-          onClick={onBtnClick}
+          onClick={() => onBtnClick("add clothes")}
           type="button"
           className="clothes-section_AddItemBtn"
         >
@@ -16,8 +25,13 @@ function ClothesSection({ clothingItems, onCardClick, onBtnClick }) {
         </button>
       </div>
       <section className="clothes-section__clothing-items">
-        {clothingItems.map((item) => (
-          <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
+        {userItems.map((item) => (
+          <ItemCard
+            key={item._id}
+            item={item}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+          />
         ))}
       </section>
     </div>
