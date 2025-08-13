@@ -17,7 +17,6 @@ function Main({ weatherData, onCardClick, clothingItems, onCardLike }) {
     .filter((item) => item.weather === weatherData.type)
     .map((item) => ({
       ...item,
-      _id: item.id,
       imageUrl: item.link,
       likes: [],
     }));
@@ -29,7 +28,7 @@ function Main({ weatherData, onCardClick, clothingItems, onCardLike }) {
   const itemsToShow = [...filteredItems, ...uniqueDefaultItems].filter(
     (item) => item.imageUrl && item.imageUrl.trim() !== ""
   );
-  
+
   return (
     <main>
       <WeatherCard weatherData={weatherData} />

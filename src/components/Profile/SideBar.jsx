@@ -5,8 +5,12 @@ function SideBar({ onEditProfileClick, onLogoutClick, currentUser }) {
   return (
     <div className="sidebar">
       <div className="sidebar__top">
-        <img src={avatar} alt="Terrence Tegegne" className="sidebar__avatar" />
-        <p className="sidebar__username">Terrence Tegegne</p>
+        <img
+          src={currentUser.avatar || avatar}
+          alt={currentUser.name || "User Avatar"}
+          className="sidebar__avatar"
+        />
+        <p className="sidebar__username">{currentUser.name || "User"}</p>
       </div>
       <div className="sidebar__buttons">
         <button

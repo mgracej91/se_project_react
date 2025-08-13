@@ -41,12 +41,12 @@ function LoginModal({ handleCloseClick, isOpen, onLoginSubmit }) {
       handleCloseClick={handleCloseClick}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label"></label>
+      <label htmlFor="login-email" className="modal__label"></label>
       Email*{" "}
       <input
         type="email"
         className="modal__input"
-        id="email"
+        id="login-email"
         name="email"
         placeholder="Email"
         onChange={handleChange}

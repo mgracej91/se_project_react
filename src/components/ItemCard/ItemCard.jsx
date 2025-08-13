@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./ItemCard.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import placeholderImg from "../../assets/Default-Weather.png";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);

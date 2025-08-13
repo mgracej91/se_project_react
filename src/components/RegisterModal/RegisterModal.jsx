@@ -54,13 +54,13 @@ function RegisterModal({ handleCloseClick, isOpen, onRegisterSubmit }) {
       handleCloseClick={handleCloseClick}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="register-email" className="modal__label">
         Email*{" "}
       </label>
       <input
         type="email"
         className="modal__input"
-        id="email"
+        id="register-email"
         name="email"
         placeholder="Email"
         onChange={handleChange}
@@ -100,13 +100,13 @@ function RegisterModal({ handleCloseClick, isOpen, onRegisterSubmit }) {
         autoComplete="new-password"
       />
 
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="register-name" className="modal__label">
         Name{" "}
       </label>
       <input
         type="text"
         className="modal__input"
-        id="name"
+        id="register-name"
         name="name"
         placeholder="Name"
         onChange={handleChange}

@@ -21,7 +21,6 @@ import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {
-  checkResponse,
   getItems,
   postItems,
   addCardLike,
@@ -52,13 +51,15 @@ function App() {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setIsLoggedIn(true);
-          return getUserData(res.token);
+          // Fetch user data and clothing items in parallel
+          return Promise.all([getUserData(res.token), getItems(res.token)]);
         } else {
           throw new Error("Login failed: No token received");
         }
       })
-      .then((userData) => {
+      .then(([userData, items]) => {
         setCurrentUser(userData);
+        setClothingItems(items);
         closeActiveModal();
       })
       .catch((err) => {
@@ -76,6 +77,11 @@ function App() {
       })
       .then((userData) => {
         setCurrentUser(userData);
+        const jwt = localStorage.getItem("jwt");
+        return getItems(jwt);
+      })
+      .then((items) => {
+        setClothingItems(items);
         closeActiveModal();
       })
       .catch((err) => {
@@ -92,7 +98,7 @@ function App() {
             cards.map((item) => (item._id === id ? updatedCard : item))
           );
         })
-  .catch((err) => {});
+        .catch((err) => {});
     } else {
       removeCardLike(id, jwt)
         .then((updatedCard) => {
@@ -100,7 +106,7 @@ function App() {
             cards.map((item) => (item._id === id ? updatedCard : item))
           );
         })
-  .catch((err) => {});
+        .catch((err) => {});
     }
   };
 
@@ -108,6 +114,7 @@ function App() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser({});
+    setClothingItems([]);
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
@@ -146,7 +153,8 @@ function App() {
   };
 
   const deleteItemModal = (card) => {
-    deleteItems(card)
+    const jwt = localStorage.getItem("jwt");
+    deleteItems(card, jwt)
       .then(() => {
         setClothingItems(clothingItems.filter((item) => item._id !== card._id));
         closeActiveModal();
