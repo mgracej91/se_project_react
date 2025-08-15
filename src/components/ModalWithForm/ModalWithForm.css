@@ -99,6 +99,15 @@
   accent-color: black;
 }
 
+.modal__button-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .modal__submit {
   border: none;
   background-color: black;
@@ -106,13 +115,32 @@
   width: 124px;
   height: 36px;
   font-size: 16px;
-  gap: 8px;
-
-  align-items: center;
-  justify-content: center;
   border-radius: 4px;
   transition: visibility 0s, background 0.3s;
-  margin-top: 24px;
+}
+
+.modal__submit:enabled {
+  cursor: pointer;
+}
+
+.modal__submit:disabled {
+  background-color: #0000004d;
+  cursor: not-allowed;
+}
+
+.modal__secondary-button {
+  background: none;
+  border: none;
+  color: #00000080;
+  font-size: 16px;
+  padding: 0 8px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.modal__secondary-button:enabled {
+  cursor: pointer;
 }
 
 .modal__submit:hover {

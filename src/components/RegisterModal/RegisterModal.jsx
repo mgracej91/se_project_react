@@ -2,7 +2,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 import { useState, useEffect } from "react";
 
-function RegisterModal({ handleCloseClick, isOpen, onRegisterSubmit }) {
+function RegisterModal({
+  handleCloseClick,
+  isOpen,
+  onRegisterSubmit,
+  onSwitchToLogin,
+}) {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -45,6 +50,17 @@ function RegisterModal({ handleCloseClick, isOpen, onRegisterSubmit }) {
       });
     }
   }, [isOpen]);
+
+  // Validation: all fields must be filled, passwords must match, email must look like an email, avatar must be a valid URL
+  const isValid =
+    data.name.trim() !== "" &&
+    data.email.trim() !== "" &&
+    data.password.trim() !== "" &&
+    data.confirmPassword.trim() !== "" &&
+    data.avatar.trim() !== "" &&
+    data.password === data.confirmPassword &&
+    /.+@.+\..+/.test(data.email) &&
+    /^https?:\/\/.+/.test(data.avatar);
 
   return (
     <ModalWithForm
@@ -127,6 +143,18 @@ function RegisterModal({ handleCloseClick, isOpen, onRegisterSubmit }) {
         value={data.avatar}
         required
       />
+      <div className="modal__button-row">
+        <button type="submit" className="modal__submit" disabled={!isValid}>
+          Sign Up
+        </button>
+        <button
+          type="button"
+          className="modal__secondary-button"
+          onClick={onSwitchToLogin}
+        >
+          or Log In
+        </button>
+      </div>
     </ModalWithForm>
   );
 }

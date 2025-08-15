@@ -31,6 +31,7 @@ function Profile({
       <section className="profile__sidebar">
         <SideBar
           onEditProfileClick={() => {
+            console.log("Edit profile button clicked");
             setIsEditProfileOpen(true);
           }}
           onLogoutClick={onSignOut}

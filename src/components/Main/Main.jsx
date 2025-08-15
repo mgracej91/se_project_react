@@ -1,32 +1,24 @@
 import React, { useContext } from "react";
 
-import { defaultClothingItems } from "../../utils/constants.js";
 import "../../index.css";
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit.jsx";
 
-function Main({ weatherData, onCardClick, clothingItems, onCardLike }) {
+function Main({
+  weatherData,
+  onCardClick,
+  clothingItems,
+  onCardLike,
+  isLoggedIn,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const filteredItems = clothingItems.filter(
-    (item) => item.weather === weatherData.type
-  );
-
-  const filteredDefault = defaultClothingItems
-    .filter((item) => item.weather === weatherData.type)
-    .map((item) => ({
-      ...item,
-      imageUrl: item.link,
-      likes: [],
-    }));
-
-  const userItemNames = new Set(filteredItems.map((item) => item.name));
-  const uniqueDefaultItems = filteredDefault.filter(
-    (item) => !userItemNames.has(item.name)
-  );
-  const itemsToShow = [...filteredItems, ...uniqueDefaultItems].filter(
-    (item) => item.imageUrl && item.imageUrl.trim() !== ""
+    (item) =>
+      item.weather === weatherData.type &&
+      item.imageUrl &&
+      item.imageUrl.trim() !== ""
   );
 
   return (
@@ -41,12 +33,13 @@ function Main({ weatherData, onCardClick, clothingItems, onCardLike }) {
           / You may want to wear:
         </p>
         <ul className="cards__list">
-          {itemsToShow.map((item) => (
+          {filteredItems.map((item) => (
             <ItemCard
               key={item._id}
               item={item}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
+              isLoggedIn={isLoggedIn}
             />
           ))}
         </ul>

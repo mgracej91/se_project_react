@@ -10,13 +10,7 @@ function getItems(jwt) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${jwt}`,
     },
-  })
-    .then((res) => {
-      return checkResponse(res);
-    })
-    .then((data) => {
-      return data;
-    });
+  }).then(checkResponse);
 }
 
 function postItems({ name, imageUrl, weather }, jwt) {

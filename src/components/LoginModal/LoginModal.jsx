@@ -2,7 +2,12 @@ import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useEffect } from "react";
 
-function LoginModal({ handleCloseClick, isOpen, onLoginSubmit }) {
+function LoginModal({
+  handleCloseClick,
+  isOpen,
+  onLoginSubmit,
+  onSwitchToRegister,
+}) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -32,6 +37,11 @@ function LoginModal({ handleCloseClick, isOpen, onLoginSubmit }) {
       });
     }
   }, [isOpen]);
+
+  const isValid =
+    data.email.trim() !== "" &&
+    data.password.trim() !== "" &&
+    /.+@.+\..+/.test(data.email);
 
   return (
     <ModalWithForm
@@ -65,6 +75,18 @@ function LoginModal({ handleCloseClick, isOpen, onLoginSubmit }) {
         value={data.password}
         required
       />
+      <div className="modal__button-row">
+        <button type="submit" className="modal__submit" disabled={!isValid}>
+          Log In
+        </button>
+        <button
+          type="button"
+          className="modal__secondary-button"
+          onClick={onSwitchToRegister}
+        >
+          or Sign Up
+        </button>
+      </div>
     </ModalWithForm>
   );
 }

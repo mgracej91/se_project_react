@@ -3,7 +3,7 @@ import "./ItemCard.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import placeholderImg from "../../assets/Default-Weather.png";
 
-function ItemCard({ item, onCardClick, onCardLike }) {
+function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
   const currentUser = useContext(CurrentUserContext);
 
   const isLiked = item.likes.some((id) => id === currentUser._id);
@@ -29,7 +29,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         alt={item.name}
         onError={() => setImgSrc(placeholderImg)}
       />
-      {currentUser && (
+      {isLoggedIn && (
         <button
           className={itemLikeButton}
           onClick={handleLike}

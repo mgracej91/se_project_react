@@ -51,15 +51,13 @@ function App() {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setIsLoggedIn(true);
-          // Fetch user data and clothing items in parallel
-          return Promise.all([getUserData(res.token), getItems(res.token)]);
+          return getUserData(res.token);
         } else {
           throw new Error("Login failed: No token received");
         }
       })
-      .then(([userData, items]) => {
+      .then((userData) => {
         setCurrentUser(userData);
-        setClothingItems(items);
         closeActiveModal();
       })
       .catch((err) => {
@@ -188,17 +186,12 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (!jwt) return;
-    Promise.all([getUserData(jwt), getItems(jwt), checkToken(jwt)])
-      .then(([userData, items, _token]) => {
-        setCurrentUser(userData);
+    getItems(jwt)
+      .then((items) => {
         setClothingItems(items);
-        setIsLoggedIn(true);
       })
       .catch((err) => {
-        console.error("Auth or fetch error:", err);
-        localStorage.removeItem("jwt");
-        setIsLoggedIn(false);
-        setCurrentUser({});
+        console.error("Fetch clothing items error:", err);
         setClothingItems([]);
       });
   }, []);
@@ -225,6 +218,7 @@ function App() {
                     onCardClick={handleCardClick}
                     onCardLike={handleCardLike}
                     clothingItems={clothingItems}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
@@ -252,6 +246,10 @@ function App() {
                 isOpen={isLoginModalOpen}
                 handleCloseClick={() => setIsLoginModalOpen(false)}
                 onLoginSubmit={handleLogin}
+                onSwitchToRegister={() => {
+                  setIsLoginModalOpen(false);
+                  setIsRegisterModalOpen(true);
+                }}
               />
             )}
             {isRegisterModalOpen && (
@@ -259,6 +257,10 @@ function App() {
                 isOpen={isRegisterModalOpen}
                 handleCloseClick={() => setIsRegisterModalOpen(false)}
                 onRegisterSubmit={handleRegister}
+                onSwitchToLogin={() => {
+                  setIsRegisterModalOpen(false);
+                  setIsLoginModalOpen(true);
+                }}
               />
             )}
             <Footer />
@@ -274,6 +276,7 @@ function App() {
             card={selectedCard}
             handleCloseClick={closeActiveModal}
             handleDeleteClick={deleteItemModal}
+            isLoggedIn={isLoggedIn}
           />
         </div>
       </CurrentUserContext.Provider>
