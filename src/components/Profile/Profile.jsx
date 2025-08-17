@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ClothesSection from "./ClothesSection";
 import SideBar from "./SideBar";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
@@ -15,18 +14,11 @@ function Profile({
   onSignOut,
   onBtnClick,
   isLoggedIn,
+  handleUpdateUser,
+  defaultItemLikes = {},
 }) {
   const currentUser = useContext(CurrentUserContext);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-
-  function handleUpdateUser({ name, avatarUrl }) {
-    const jwt = localStorage.getItem("jwt");
-    updateUserProfile({ name, avatarUrl }, jwt)
-      .then(() => {
-        setIsEditProfileOpen(false);
-      })
-      .catch(console.error);
-  }
 
   return (
     <div className="profile">
@@ -45,6 +37,7 @@ function Profile({
           onBtnClick={onBtnClick}
           currentUser={currentUser}
           isLoggedIn={isLoggedIn}
+          defaultItemLikes={defaultItemLikes}
         />
       </section>
       {isEditProfileOpen && (
@@ -52,7 +45,10 @@ function Profile({
           currentUser={currentUser}
           isOpen={isEditProfileOpen}
           onClose={() => setIsEditProfileOpen(false)}
-          onUpdateUser={handleUpdateUser}
+          onUpdateUser={(data) => {
+            handleUpdateUser(data);
+            setIsEditProfileOpen(false);
+          }}
         />
       )}
     </div>

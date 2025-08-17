@@ -3,10 +3,22 @@ import "./ItemCard.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import placeholderImg from "../../assets/Default-Weather.png";
 
-function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
+function ItemCard({
+  item,
+  onCardClick,
+  onCardLike,
+  isLoggedIn,
+  isLiked: isLikedProp,
+  isDefault,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
-  const isLiked = item.likes.some((id) => id === currentUser._id);
+  // For default items, use isLikedProp; for user items, check likes array
+  const isLiked = isDefault
+    ? !!isLikedProp
+    : Array.isArray(item.likes) && currentUser
+    ? item.likes.some((id) => id === currentUser._id)
+    : false;
 
   const itemLikeButton = `card__like-button ${
     isLiked ? "card__like-button_active" : ""
@@ -14,7 +26,7 @@ function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
 
   function handleLike() {
     if (!currentUser) return;
-    onCardLike({ id: item._id, isLiked });
+    onCardLike({ id: item._id, isLiked, isDefault });
   }
 
   const [imgSrc, setImgSrc] = useState(item.imageUrl);

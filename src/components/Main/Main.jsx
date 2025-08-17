@@ -1,3 +1,4 @@
+import { defaultClothingItems } from "../../utils/constants";
 import React, { useContext } from "react";
 
 import "../../index.css";
@@ -12,9 +13,19 @@ function Main({
   clothingItems,
   onCardLike,
   isLoggedIn,
+  defaultItemLikes = {},
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  const filteredItems = clothingItems.filter(
+  const allItems = [
+    ...clothingItems,
+    ...defaultClothingItems.map((item) => ({
+      ...item,
+      imageUrl: item.link,
+      isDefault: true,
+    })),
+  ];
+
+  const filteredItems = allItems.filter(
     (item) =>
       item.weather === weatherData.type &&
       item.imageUrl &&
@@ -40,6 +51,10 @@ function Main({
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               isLoggedIn={isLoggedIn}
+              isLiked={
+                item.isDefault ? !!defaultItemLikes[item._id] : undefined
+              }
+              isDefault={item.isDefault}
             />
           ))}
         </ul>

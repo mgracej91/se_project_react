@@ -1,3 +1,19 @@
+// Update user profile and update currentUser state
+const handleUpdateUser = ({ name, avatarUrl }) => {
+  const jwt = localStorage.getItem("jwt");
+  updateUserProfile({ name, avatarUrl }, jwt)
+    .then((updatedUser) => {
+      setCurrentUser((prev) => ({
+        ...prev,
+        name: updatedUser.name,
+        avatar: updatedUser.avatar,
+      }));
+    })
+    .catch(console.error);
+};
+
+// Auto-login effect: check for JWT and set user if valid
+// This must be inside the App component, after imports
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
@@ -28,6 +44,9 @@ import {
 } from "../../utils/api.js";
 import { login, register, getUserData, checkToken } from "../../utils/auth.js";
 
+// Helper: check if item is a default item (not from backend)
+const isDefaultItem = (item) => typeof item._id === "number";
+
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -42,6 +61,9 @@ function App() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
+  // Local like state for default items (by _id)
+  const [defaultItemLikes, setDefaultItemLikes] = useState({});
 
   const handleLogin = ({ email, password }) => {
     login({ email, password })
@@ -85,7 +107,11 @@ function App() {
       });
   };
 
-  const handleCardLike = ({ id, isLiked }) => {
+  const handleCardLike = ({ id, isLiked, isDefault }) => {
+    if (isDefault) {
+      setDefaultItemLikes((prev) => ({ ...prev, [id]: !isLiked }));
+      return;
+    }
     const jwt = localStorage.getItem("jwt");
     if (!isLiked) {
       addCardLike(id, jwt)
@@ -181,87 +207,97 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // Auto-login effect: check for JWT and set user if valid
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (!jwt) return;
-    getItems(jwt)
+    checkToken(jwt)
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsLoggedIn(true);
+        return getItems(jwt);
+      })
       .then((items) => {
         setClothingItems(items);
       })
       .catch((err) => {
-        console.error("Fetch clothing items error:", err);
+        // If token is invalid, clear it and log out
+        localStorage.removeItem("jwt");
+        setIsLoggedIn(false);
+        setCurrentUser({});
         setClothingItems([]);
       });
   }, []);
 
   return (
-    <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-    >
-      <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{
+          currentTemperatureUnit,
+          handleToggleSwitchChange,
+        }}
+      >
         <div className="app">
-          <div className="app__content">
-            <Header
-              onClick={handleBtnClick}
-              weatherData={weatherData}
-              isLoggedIn={isLoggedIn}
+          <Header
+            onClick={handleBtnClick}
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                  onCardLike={handleCardLike}
+                  isLoggedIn={isLoggedIn}
+                  defaultItemLikes={defaultItemLikes}
+                />
+              }
             />
-
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    weatherData={weatherData}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    clothingItems={clothingItems}
                     onCardClick={handleCardClick}
                     onCardLike={handleCardLike}
-                    clothingItems={clothingItems}
+                    onBtnClick={handleBtnClick}
+                    currentUser={currentUser}
                     isLoggedIn={isLoggedIn}
+                    defaultItemLikes={defaultItemLikes}
+                    onSignOut={handleSignOut}
                   />
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Profile
-                      isLoggedIn={isLoggedIn}
-                      onBtnClick={handleBtnClick}
-                      onCardClick={handleCardClick}
-                      onCardLike={handleCardLike}
-                      clothingItems={clothingItems}
-                      onSignOut={handleSignOut}
-                    />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
 
-            {isLoginModalOpen && (
-              <LoginModal
-                isOpen={isLoginModalOpen}
-                handleCloseClick={() => setIsLoginModalOpen(false)}
-                onLoginSubmit={handleLogin}
-                onSwitchToRegister={() => {
-                  setIsLoginModalOpen(false);
-                  setIsRegisterModalOpen(true);
-                }}
-              />
-            )}
-            {isRegisterModalOpen && (
-              <RegisterModal
-                isOpen={isRegisterModalOpen}
-                handleCloseClick={() => setIsRegisterModalOpen(false)}
-                onRegisterSubmit={handleRegister}
-                onSwitchToLogin={() => {
-                  setIsRegisterModalOpen(false);
-                  setIsLoginModalOpen(true);
-                }}
-              />
-            )}
-            <Footer />
-          </div>
-
+          {isLoginModalOpen && (
+            <LoginModal
+              isOpen={isLoginModalOpen}
+              handleCloseClick={() => setIsLoginModalOpen(false)}
+              onLoginSubmit={handleLogin}
+              onSwitchToRegister={() => {
+                setIsLoginModalOpen(false);
+                setIsRegisterModalOpen(true);
+              }}
+            />
+          )}
+          {isRegisterModalOpen && (
+            <RegisterModal
+              isOpen={isRegisterModalOpen}
+              handleCloseClick={() => setIsRegisterModalOpen(false)}
+              onRegisterSubmit={handleRegister}
+              onSwitchToLogin={() => {
+                setIsRegisterModalOpen(false);
+                setIsLoginModalOpen(true);
+              }}
+            />
+          )}
           <AddItemModal
             isOpen={activeModal === "add garment"}
             handleCloseClick={closeActiveModal}
@@ -271,12 +307,14 @@ function App() {
             activeModal={activeModal}
             card={selectedCard}
             handleCloseClick={closeActiveModal}
-            handleDeleteClick={deleteItemModal}
+            onDeleteItem={deleteItemModal}
             isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
           />
+          <Footer />
         </div>
-      </CurrentUserContext.Provider>
-    </CurrentTemperatureUnitContext.Provider>
+      </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

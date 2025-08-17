@@ -1,7 +1,7 @@
 import avatar from "../../assets/avatar.png";
 import "./SideBar.css";
 
-function SideBar({ onEditProfileClick, onLogoutClick, currentUser }) {
+function SideBar({ onEditProfileClick, onLogoutClick, currentUser = {} }) {
   return (
     <div className="sidebar">
       <div className="sidebar__top">

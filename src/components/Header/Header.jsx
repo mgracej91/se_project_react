@@ -37,7 +37,8 @@ function Header({ onClick, weatherData, isLoggedIn }) {
           <img src={logo} alt="WTWR Logo" className="header__logo" />
         </Link>
         <p className="header__date-and-location">
-          {currentDate}, {weatherData.city}
+          {currentDate},{" "}
+          {weatherData && weatherData.city ? weatherData.city : ""}
         </p>
       </div>
 

@@ -8,9 +8,14 @@ function ClothesSection({
   onBtnClick,
   currentUser,
   isLoggedIn,
+  defaultItemLikes = {},
 }) {
   const userItems = clothingItems.filter(
-    (item) => item.owner === currentUser._id
+    (item) =>
+      item &&
+      currentUser &&
+      typeof currentUser._id !== "undefined" &&
+      item.owner === currentUser._id
   );
 
   return (
@@ -33,6 +38,8 @@ function ClothesSection({
             onCardClick={onCardClick}
             onCardLike={onCardLike}
             isLoggedIn={isLoggedIn}
+            isLiked={item.isDefault ? !!defaultItemLikes[item._id] : undefined}
+            isDefault={item.isDefault}
           />
         ))}
       </section>
