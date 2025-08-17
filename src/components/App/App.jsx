@@ -14,8 +14,6 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import Profile from "../Profile/Profile";
-import SideBar from "../Profile/SideBar.jsx";
-import ClothesSection from "../Profile/ClothesSection.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
@@ -225,15 +223,13 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
                       isLoggedIn={isLoggedIn}
                       onBtnClick={handleBtnClick}
                       onCardClick={handleCardClick}
                       onCardLike={handleCardLike}
                       clothingItems={clothingItems}
-                      currentUser={currentUser}
-                      setCurrentUser={setCurrentUser}
                       onSignOut={handleSignOut}
                     />
                   </ProtectedRoute>

@@ -21,7 +21,16 @@ function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
 
   return (
     <li className="card">
-      <h2 className="card__name">{item.name}</h2>
+      <div className="card__info">
+        <h2 className="card__name">{item.name}</h2>
+        {isLoggedIn && (
+          <button
+            className={itemLikeButton}
+            onClick={handleLike}
+            label={isLiked ? "Unlike" : "Like"}
+          ></button>
+        )}
+      </div>
       <img
         onClick={() => onCardClick(item)}
         className="card__image"
@@ -29,13 +38,6 @@ function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
         alt={item.name}
         onError={() => setImgSrc(placeholderImg)}
       />
-      {isLoggedIn && (
-        <button
-          className={itemLikeButton}
-          onClick={handleLike}
-          label={isLiked ? "Unlike" : "Like"}
-        ></button>
-      )}
     </li>
   );
 }

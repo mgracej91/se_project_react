@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "CabinetGrotesk-Bold";
+  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
+}
+
 .header__auth-buttons {
   display: flex;
   align-items: center;
@@ -20,10 +25,6 @@
 .header__auth-buttons button:focus {
   color: #1976d2;
   outline: none;
-}
-@font-face {
-  font-family: "CabinetGrotesk-Bold";
-  src: url(../../vendor/fonts/CabinetGrotesk-Bold.otf) format("otf");
 }
 
 .header {
@@ -159,8 +160,8 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    background: transparent;
     background: url("../../assets/hamburger.svg") center no-repeat;
+    background-color: transparent;
     cursor: pointer;
     outline: none;
     transition: all 0.4s ease;

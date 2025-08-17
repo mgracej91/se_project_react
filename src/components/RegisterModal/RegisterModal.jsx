@@ -51,7 +51,6 @@ function RegisterModal({
     }
   }, [isOpen]);
 
-  // Validation: all fields must be filled, passwords must match, email must look like an email, avatar must be a valid URL
   const isValid =
     data.name.trim() !== "" &&
     data.email.trim() !== "" &&
@@ -64,7 +63,8 @@ function RegisterModal({
 
   return (
     <ModalWithForm
-      title="Register"
+      contentClassName="modal__register"
+      title="Sign Up"
       buttonText="Sign Up"
       isOpen={isOpen}
       handleCloseClick={handleCloseClick}

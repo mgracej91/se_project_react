@@ -50,6 +50,7 @@ function LoginModal({
       isOpen={isOpen}
       handleCloseClick={handleCloseClick}
       onSubmit={handleSubmit}
+      contentClassName="modal__login"
     >
       <label htmlFor="login-email" className="modal__label"></label>
       Email*{" "}

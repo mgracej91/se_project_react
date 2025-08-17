@@ -4,8 +4,8 @@
 }
 
 .modal.modal_opened {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   top: 0;
   right: 0;
@@ -18,34 +18,70 @@
 }
 
 .modal__item {
-  max-height: 90vh;
+  width: 498px;
+  height: 498px;
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
-  background-color: #ffffff;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 20px;
+  background: #fff;
+  position: absolute;
+  top: 106px;
+  left: 471px;
+  opacity: 1;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .modal__item {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 75vw;
+    max-height: 75vh;
+    width: 95vw;
+    height: auto;
+    min-width: 320px;
+    min-height: 200px;
+    padding: 16px 8px;
+  }
 }
 
 .modal__image {
-  height: 400px;
-  width: 400px;
+  width: 100%;
+  height: 320px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+  object-fit: cover;
+  display: block;
+  margin: 0;
 }
 
 .modal__caption {
   font-family: "CabinetGrotesk-Bold", Arial, Helvetica, sans-serif;
-  margin-left: 32px;
+  margin: 20px 0 0 32px;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
+  text-align: left;
+  width: auto;
 }
 
 .modal__weather {
-  margin-bottom: 32px;
-  margin-left: 32px;
+  margin: 12px 0 0 32px;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #333;
+  text-align: left;
+  width: auto;
 }
 
 .modal__item.modal__close {
@@ -58,23 +94,33 @@
   cursor: pointer;
 }
 
-.modal__content_type_image {
-  position: relative;
-}
-
 .modal__delete {
   border: none;
   background-color: #ffffff;
   color: #ff4d00;
   position: absolute;
   right: 32px;
-  bottom: 80px;
+  bottom: 40px;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  z-index: 2;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1200px) {
+  .modal__item {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95vw;
+    max-height: 95vh;
+    width: 95vw;
+    height: auto;
+    min-width: 320px;
+    min-height: 200px;
+    padding: 0;
+  }
   .modal__image {
-    height: 200px;
     height: 200px;
   }
 }

@@ -16,27 +16,17 @@
   z-index: 1000;
 }
 
-.modal__content {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  padding: 32px 24px;
-  border-radius: 8px;
+.modal__content.modal__edit-profile {
   width: 496px;
   height: 304px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
-  position: relative;
-  opacity: 1;
-  left: 0;
-  top: 0;
-  transform: none;
-  min-width: unset;
-  max-width: unset;
+  border-radius: 16px;
+  background: #fff;
   font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   font-weight: 700;
-  font-style: bold;
   font-size: 16px;
   line-height: 20px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  padding: 32px 24px;
 }
 
 .modal__title {

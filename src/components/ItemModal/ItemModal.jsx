@@ -16,7 +16,7 @@ function ItemModal({
 
   return (
     <div className={`modal ${activeModal === "preview" ? "modal_opened" : ""}`}>
-      <div className="modal__content_type_image">
+      <div className="modal__item">
         <button
           onClick={handleCloseClick}
           type="button"
@@ -24,21 +24,18 @@ function ItemModal({
         >
           <img src={xIcon} alt="Close" />
         </button>
-
-        <div className="modal__item">
-          <img src={card.imageUrl} alt={card.name} className="modal__image" />
-          <h2 className="modal__caption">{card.name}</h2>{" "}
-          <p className="modal__weather">Weather: {card.weather}</p>
-          {isOwn && isLoggedIn && (
-            <button
-              onClick={() => handleDeleteClick(card)}
-              type="button"
-              className="modal__delete"
-            >
-              Delete item
-            </button>
-          )}
-        </div>
+        <img src={card.imageUrl} alt={card.name} className="modal__image" />
+        <h2 className="modal__caption">{card.name}</h2>
+        <p className="modal__weather">Weather: {card.weather}</p>
+        {isOwn && isLoggedIn && (
+          <button
+            onClick={() => handleDeleteClick(card)}
+            type="button"
+            className="modal__delete"
+          >
+            Delete item
+          </button>
+        )}
       </div>
     </div>
   );

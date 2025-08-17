@@ -1,0 +1,34 @@
+.modal__content.modal__register {
+  width: 496px;
+  height: 456px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 28px 28px 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal__register .modal__input {
+  margin-bottom: 12px;
+  margin-top: 2px;
+}
+
+.modal__register .modal__label {
+  margin-bottom: 2px;
+}
+
+.modal__register .modal__button-row {
+  margin-top: 12px;
+  justify-content: flex-start;
+}
+.modal__register .modal__input {
+  margin-bottom: 16px;
+}
+
+.modal__register .modal__button-row {
+  margin-bottom: 8px;
+}

@@ -5,22 +5,24 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import { updateUserProfile } from "../../utils/api";
 import "./Profile.css";
 
+import { useContext, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 function Profile({
   clothingItems,
   onCardClick,
   onCardLike,
-  currentUser,
-  setCurrentUser,
   onSignOut,
   onBtnClick,
+  isLoggedIn,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   function handleUpdateUser({ name, avatarUrl }) {
     const jwt = localStorage.getItem("jwt");
     updateUserProfile({ name, avatarUrl }, jwt)
-      .then((updatedUser) => {
-        setCurrentUser(updatedUser);
+      .then(() => {
         setIsEditProfileOpen(false);
       })
       .catch(console.error);
@@ -30,10 +32,7 @@ function Profile({
     <div className="profile">
       <section className="profile__sidebar">
         <SideBar
-          onEditProfileClick={() => {
-            console.log("Edit profile button clicked");
-            setIsEditProfileOpen(true);
-          }}
+          onEditProfileClick={() => setIsEditProfileOpen(true)}
           onLogoutClick={onSignOut}
           currentUser={currentUser}
         />
@@ -45,6 +44,7 @@ function Profile({
           onCardLike={onCardLike}
           onBtnClick={onBtnClick}
           currentUser={currentUser}
+          isLoggedIn={isLoggedIn}
         />
       </section>
       {isEditProfileOpen && (

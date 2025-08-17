@@ -87,7 +87,9 @@ function AddItemModal({ handleCloseClick, isOpen, onAddItemModalSubmit }) {
         )}
       </label>
       <fieldset className="modal__radio-btns">
-        <legend className="modal__legend">Select the weather type:</legend>
+        <legend className="modal__radio-legend">
+          Select the weather type:
+        </legend>
         <label htmlFor="hot" className="modal__label modal__label_type_radio">
           <input
             id="hot"
@@ -125,6 +127,9 @@ function AddItemModal({ handleCloseClick, isOpen, onAddItemModalSubmit }) {
           Cold
         </label>
       </fieldset>
+      <button type="submit" className="modal__submit">
+        Add garment
+      </button>
     </ModalWithForm>
   );
 }
