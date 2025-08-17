@@ -4,10 +4,8 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.png";
 import mobilebtn from "../../assets/hamburger.svg";
 import xIcon from "../../assets/x.svg";
-import { coordinates } from "../../utils/constants";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({ onClick, weatherData, isLoggedIn }) {

@@ -1,5 +1,0 @@
-@import url("./vendor/normalize.css");
-/* All buttons should have a pointer cursor */
-button {
-	cursor: pointer;
-}

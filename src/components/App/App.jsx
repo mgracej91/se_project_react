@@ -1,19 +1,3 @@
-// Update user profile and update currentUser state
-const handleUpdateUser = ({ name, avatarUrl }) => {
-  const jwt = localStorage.getItem("jwt");
-  updateUserProfile({ name, avatarUrl }, jwt)
-    .then((updatedUser) => {
-      setCurrentUser((prev) => ({
-        ...prev,
-        name: updatedUser.name,
-        avatar: updatedUser.avatar,
-      }));
-    })
-    .catch(console.error);
-};
-
-// Auto-login effect: check for JWT and set user if valid
-// This must be inside the App component, after imports
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
@@ -44,9 +28,6 @@ import {
 } from "../../utils/api.js";
 import { login, register, getUserData, checkToken } from "../../utils/auth.js";
 
-// Helper: check if item is a default item (not from backend)
-const isDefaultItem = (item) => typeof item._id === "number";
-
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -62,7 +43,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
-  // Local like state for default items (by _id)
   const [defaultItemLikes, setDefaultItemLikes] = useState({});
 
   const handleLogin = ({ email, password }) => {
@@ -130,6 +110,19 @@ function App() {
         })
         .catch((err) => {});
     }
+  };
+
+  const handleUpdateUser = ({ name, avatarUrl }) => {
+    const jwt = localStorage.getItem("jwt");
+    updateUserProfile({ name, avatarUrl }, jwt)
+      .then((updatedUser) => {
+        setCurrentUser((prev) => ({
+          ...prev,
+          name: updatedUser.name,
+          avatar: updatedUser.avatar,
+        }));
+      })
+      .catch(console.error);
   };
 
   const handleSignOut = () => {
@@ -207,7 +200,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // Auto-login effect: check for JWT and set user if valid
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (!jwt) return;
@@ -221,7 +213,6 @@ function App() {
         setClothingItems(items);
       })
       .catch((err) => {
-        // If token is invalid, clear it and log out
         localStorage.removeItem("jwt");
         setIsLoggedIn(false);
         setCurrentUser({});
@@ -270,6 +261,7 @@ function App() {
                     isLoggedIn={isLoggedIn}
                     defaultItemLikes={defaultItemLikes}
                     onSignOut={handleSignOut}
+                    handleUpdateUser={handleUpdateUser}
                   />
                 </ProtectedRoute>
               }

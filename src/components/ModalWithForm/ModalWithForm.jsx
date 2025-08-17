@@ -3,7 +3,6 @@ import xIcon from "../../assets/x.svg";
 
 function ModalWithForm({
   children,
-  buttonText,
   title,
   handleCloseClick,
   isOpen,
