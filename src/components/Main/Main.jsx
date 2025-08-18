@@ -1,4 +1,3 @@
-import { defaultClothingItems } from "../../utils/constants";
 import React, { useContext } from "react";
 
 import "./Main.css";
@@ -15,14 +14,7 @@ function Main({
   defaultItemLikes = {},
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  const allItems = [
-    ...clothingItems,
-    ...defaultClothingItems.map((item) => ({
-      ...item,
-      imageUrl: item.link,
-      isDefault: true,
-    })),
-  ];
+  const allItems = clothingItems;
 
   const filteredItems = allItems.filter(
     (item) =>

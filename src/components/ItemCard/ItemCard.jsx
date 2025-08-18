@@ -13,7 +13,6 @@ function ItemCard({
 }) {
   const currentUser = useContext(CurrentUserContext);
 
-  // For default items, use isLikedProp; for user items, check likes array
   const isLiked = isDefault
     ? !!isLikedProp
     : Array.isArray(item.likes) && currentUser

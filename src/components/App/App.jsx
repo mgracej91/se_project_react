@@ -51,13 +51,14 @@ function App() {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setIsLoggedIn(true);
-          return getUserData(res.token);
+          return Promise.all([getUserData(res.token), getItems(res.token)]);
         } else {
           throw new Error("Login failed: No token received");
         }
       })
-      .then((userData) => {
+      .then(([userData, items]) => {
         setCurrentUser(userData);
+        setClothingItems(items);
         closeActiveModal();
       })
       .catch((err) => {
@@ -100,7 +101,7 @@ function App() {
             cards.map((item) => (item._id === id ? updatedCard : item))
           );
         })
-        .catch((err) => {});
+        .catch(console.error);
     } else {
       removeCardLike(id, jwt)
         .then((updatedCard) => {
@@ -108,7 +109,7 @@ function App() {
             cards.map((item) => (item._id === id ? updatedCard : item))
           );
         })
-        .catch((err) => {});
+        .catch(console.error);
     }
   };
 
@@ -198,26 +199,31 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, []);
 
-  useEffect(() => {
+    // Always fetch clothing items from the server, with or without JWT
     const jwt = localStorage.getItem("jwt");
-    if (!jwt) return;
-    checkToken(jwt)
-      .then((userData) => {
-        setCurrentUser(userData);
-        setIsLoggedIn(true);
-        return getItems(jwt);
-      })
-      .then((items) => {
-        setClothingItems(items);
-      })
-      .catch((err) => {
-        localStorage.removeItem("jwt");
-        setIsLoggedIn(false);
-        setCurrentUser({});
-        setClothingItems([]);
-      });
+    let userPromise = Promise.resolve(null);
+    if (jwt) {
+      userPromise = checkToken(jwt)
+        .then((userData) => {
+          setCurrentUser(userData);
+          setIsLoggedIn(true);
+          return userData;
+        })
+        .catch((err) => {
+          localStorage.removeItem("jwt");
+          setIsLoggedIn(false);
+          setCurrentUser({});
+          return null;
+        });
+    }
+    userPromise.finally(() => {
+      getItems(jwt)
+        .then((items) => {
+          setClothingItems(items);
+        })
+        .catch(console.error);
+    });
   }, []);
 
   return (
@@ -229,11 +235,7 @@ function App() {
         }}
       >
         <div className="app">
-          <Header
-            onClick={handleBtnClick}
-            isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
-          />
+          <Header onClick={handleBtnClick} isLoggedIn={isLoggedIn} />
           <Routes>
             <Route
               path="/"
@@ -257,7 +259,6 @@ function App() {
                     onCardClick={handleCardClick}
                     onCardLike={handleCardLike}
                     onBtnClick={handleBtnClick}
-                    currentUser={currentUser}
                     isLoggedIn={isLoggedIn}
                     defaultItemLikes={defaultItemLikes}
                     onSignOut={handleSignOut}
@@ -299,9 +300,8 @@ function App() {
             activeModal={activeModal}
             card={selectedCard}
             handleCloseClick={closeActiveModal}
-            onDeleteItem={deleteItemModal}
+            handleDeleteClick={deleteItemModal}
             isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
           />
           <Footer />
         </div>
