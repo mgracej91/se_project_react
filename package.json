@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://wtwr.fin-tech.com",
   "scripts": {
     "dev": "vite -- open",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* meganjakims1@wtwr.fin-tech.com:/home/meganjakims1/frontend"
   },
   "dependencies": {
     "mongoose": "^8.16.4",

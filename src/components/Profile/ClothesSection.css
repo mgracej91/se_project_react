@@ -26,5 +26,17 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 0;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .clothes-section__clothing-items {
+    justify-content: flex-start;
+    padding: 0 4px;
+    gap: 8px;
+  }
 }
