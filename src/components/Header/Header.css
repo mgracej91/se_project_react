@@ -64,7 +64,6 @@
   position: absolute;
   width: 22px;
   height: 22px;
-  background: url("../../assets/x.svg") center no-repeat;
   right: 11px;
   top: 11px;
   border: none;
@@ -139,6 +138,9 @@
 @media screen and (max-width: 767px) {
   .header__nav_opened {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     background: #ffffff;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
@@ -149,9 +151,8 @@
     height: 208px;
     z-index: 10;
     padding: 60px 0;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 16px;
   }
 
   .header__mobile-menu {
